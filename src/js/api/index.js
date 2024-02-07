@@ -13,27 +13,27 @@ export const tmdb = {
   BASE_IMAGE_URL,
 
   // https://developers.themoviedb.org/3/trending/get-trending
-  getTrending({ media_type = 'movie', time_window = 'week' } = {}) {
+  getTrending ({ media_type = 'movie', time_window = 'week' } = {}) {
     return _fetch(`/trending/${media_type}/${time_window}`)
   },
 
   // https://api.themoviedb.org/3/movie/popular
-  getPopularMovie() {
-    return _fetch(`/movie/popular`)
+  getPopularMovie () {
+    return _fetch('/movie/popular')
   },
 
-  // https://developers.themoviedb.org/3/discover/movie-discover  
-  getGenre(id) {
-    return _fetch(`/discover/movie`, `sort_by=popularity.desc&region=KR&with_genres=${id}`)
+  // https://developers.themoviedb.org/3/discover/movie-discover
+  getGenre (id) {
+    return _fetch('/discover/movie', `sort_by=popularity.desc&region=KR&with_genres=${id}`)
   },
 
   // https://developers.themoviedb.org/3/movies/get-movie-details
-  getMovieDetails(id) {
+  getMovieDetails (id) {
     return _fetch(`/movie/${id}`, 'append_to_response=similar,videos')
   },
 
   // https://api.themoviedb.org/3/movie/{id}
-  getVideo(id) {
+  getVideo (id) {
     return window.fetch(`${API_URL}/movie/${id}/videos?api_key=${API_KEY}`)
   }
 }

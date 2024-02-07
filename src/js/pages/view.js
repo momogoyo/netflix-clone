@@ -3,12 +3,12 @@ import { isFunction } from '../helper/utils'
 // Super(부모) Class
 // 중복을 방지하기 위해 (Global)
 class View {
-  constructor(attr) {
+  constructor (attr) {
     this.$refs = {}
     this.$element = this._createElement(attr)
   }
 
-  intersectionObserver(elem, callback) {
+  intersectionObserver (elem, callback) {
     // elem type 확인 -> NodeListaus 배열로 반환
     elem = elem instanceof NodeList ? Array.from(elem) : elem
 
@@ -37,7 +37,7 @@ class View {
     }
   }
 
-  lazyLoad(image) {
+  lazyLoad (image) {
     const images = Array.from(image)
 
     this.intersectionObserver(images, (img) => {
@@ -50,7 +50,7 @@ class View {
 
   // class를 제품이라 생각하면 사용자한테 내보여서는 안되는 것들 (프라이빗한 메소드)
   // 라이브러리를 만든 사람만 신경쓰는 메소드
-  _createElement(attr) {
+  _createElement (attr) {
     const div = document.createElement('div')
 
     if (attr) {

@@ -12,29 +12,29 @@ const DOM = {
 
 let router = null // Object는 보통 null로 초기화
 
-function init() {
+function init () {
   initRouter()
   initEvents()
 }
 
-function initRouter() {
+function initRouter () {
   router = new Router({
     initialRoute: '/',
     entry: DOM.container,
-    routes: routes
+    routes
   })
 
   // router.go()
   // router.back()
 }
 
-function initEvents() {
+function initEvents () {
   // Array.from(DOM.navLinks).forEach(link => link.addEventListener('click', onNavLink))
   document.addEventListener('click', onRouteLinks)
 }
 
 // function onNavLink(event) {
-function onRouteLinks(event) {
+function onRouteLinks (event) {
   // a tag가 없으면 그 위의 부모 요소를 타고 올라가며 a tag가 있는지 탐색한다.
   // 조건에 만족하는 요소가 없으면 null을 반환한다.
   const target = event.target.matches('a') ? event.target : event.target.closest('a')

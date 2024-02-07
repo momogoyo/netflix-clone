@@ -1,12 +1,12 @@
-export function isFunction(value) {
+export function isFunction (value) {
   return typeof value === 'function'
 }
 
-export function isNumber(value) {
+export function isNumber (value) {
   return typeof value === 'number' && !isNaN(value)
 }
 
-export function addStyle(element, value) {
+export function addStyle (element, value) {
   if (isNumber(element.length)) {
     Array.from(element).forEach(elem => addStyle(elem.style, value))
 
@@ -17,7 +17,7 @@ export function addStyle(element, value) {
   Object.assign(element.style, value)
 }
 
-export function emptyStyle(element, value) {
+export function emptyStyle (element, value) {
   if (isNumber(element.length)) {
     Array.from(element).forEach(elem => emptyStyle(elem.style, value))
 
@@ -27,7 +27,7 @@ export function emptyStyle(element, value) {
   element.setAttribute('style', '')
 }
 
-export function addClass(element, value) {
+export function addClass (element, value) {
   if (isNumber(element.length)) {
     Array.from(element).forEach(elem => addClass(elem, value))
 
@@ -37,7 +37,7 @@ export function addClass(element, value) {
   element.classList.add(value)
 }
 
-export function removeClass(element, value) {
+export function removeClass (element, value) {
   if (isNumber(element.length)) {
     Array.from(element).forEach(elem => removeClass(elem, value))
 
@@ -47,14 +47,14 @@ export function removeClass(element, value) {
   element.classList.remove(value)
 }
 
-export function emptyChild(element) {
+export function emptyChild (element) {
   while (element.hasChildNodes()) {
     element.removeChild(element.lastChild)
   }
 }
 
 // From: https://medium.com/@TCAS3/debounce-deep-dive-javascript-es6-e6f8d983b7a1
-export function debounce(fn, time) {
+export function debounce (fn, time) {
   let timeout
 
   return function () {

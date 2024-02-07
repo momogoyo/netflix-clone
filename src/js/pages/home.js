@@ -7,7 +7,7 @@ import SharedTransition from '../lib/shared-transition'
 import { addStyle, emptyStyle, emptyChild, addClass, removeClass, debounce } from '../helper/utils'
 
 class Home extends View {
-  constructor() {
+  constructor () {
     super({ // 이걸로 부모에 접근할 수 있다. (부모 클래스 constructor에 접근하도록 한다.)
       innerHTML: template,
       className: 'home'
@@ -33,7 +33,7 @@ class Home extends View {
     this._youtubeTimer = 0
   }
 
-  mounted() {
+  mounted () {
     this._requestVideo()
     this._requestOriginal()
     this._requestPopular()
@@ -45,12 +45,12 @@ class Home extends View {
     this._initDOM()
   }
 
-  destroyed() {
+  destroyed () {
     window.removeEventListener('scroll', this._onScrollStart)
     window.removeEventListener('scroll', this._onScrollEnd)
   }
 
-  _initDOM() {
+  _initDOM () {
     this._initEvent()
 
     for (let i = 0; i < this.DOM.slideContainer.length; i++) {
@@ -64,8 +64,8 @@ class Home extends View {
     }
   }
 
-  _initEvent() {
-    window.addEventListener("load", () => new VideoPlayer(this.$refs))
+  _initEvent () {
+    window.addEventListener('load', () => new VideoPlayer(this.$refs))
     this._onScrollStart = this._onScrollStart.bind(this)
     this._onScrollEnd = debounce(this._onScrollEnd.bind(this), 250)
     window.addEventListener('scroll', this._onScrollStart)
@@ -76,20 +76,20 @@ class Home extends View {
     this.DOM.cancelTrailer.addEventListener('click', this._closeTrailer.bind(this))
   }
 
-  _onTrailer(event) {
+  _onTrailer (event) {
     const trailer = this.DOM.trailer
 
     addClass(trailer, 'on')
   }
 
-  _closeTrailer() {
+  _closeTrailer () {
     const trailer = this.DOM.trailer
 
     removeClass(trailer, 'on')
   }
 
   // GET DATA
-  async _requestVideo() {
+  async _requestVideo () {
     const landing = this.$refs.landing
 
     tmdb.getMovieDetails(337401)
@@ -102,7 +102,7 @@ class Home extends View {
       })
   }
 
-  _requestOriginal() {
+  _requestOriginal () {
     const original = this.$refs.original
 
     this.intersectionObserver(original, () => {
@@ -117,7 +117,7 @@ class Home extends View {
     })
   }
 
-  _requestPopular() { // 영화 인기 순위 API
+  _requestPopular () { // 영화 인기 순위 API
     const popular = this.$refs.popular
 
     this.intersectionObserver(popular, () => {
@@ -133,7 +133,7 @@ class Home extends View {
     })
   }
 
-  _requestKids() {
+  _requestKids () {
     const kids = this.$refs.kids
 
     this.intersectionObserver(kids, () => {
@@ -148,8 +148,7 @@ class Home extends View {
     })
   }
 
-
-  _requestHistory() {
+  _requestHistory () {
     const history = this.$refs.history
 
     this.intersectionObserver(history, () => {
@@ -164,7 +163,7 @@ class Home extends View {
     })
   }
 
-  _requestHorror() {
+  _requestHorror () {
     const horror = this.$refs.horror
 
     this.intersectionObserver(horror, () => {
@@ -179,7 +178,7 @@ class Home extends View {
     })
   }
 
-  _requestDocumentary() {
+  _requestDocumentary () {
     const documentary = this.$refs.documentary
 
     this.intersectionObserver(documentary, () => {
@@ -189,12 +188,12 @@ class Home extends View {
           this._render(documentary, movieList)
         })
         .catch(err => {
-          console.log('Fetch Error', err);
+          console.log('Fetch Error', err)
         })
     })
   }
 
-  _renderLanding(element, movieList) {
+  _renderLanding (element, movieList) {
     return new Promise((resolve, reject) => {
       element.insertAdjacentHTML('beforeend', `
         <div class="landing-poster" data-id="${movieList.id}">
@@ -210,7 +209,7 @@ class Home extends View {
     })
   }
 
-  _renderOriginal(element, movieList) {
+  _renderOriginal (element, movieList) {
     return new Promise((resolve, reject) => {
       while (element.hasChildNodes()) {
         element.removeChild(element.lastChild)
@@ -238,7 +237,7 @@ class Home extends View {
     })
   }
 
-  _render(element, movieList) {
+  _render (element, movieList) {
     return new Promise((resolve, reject) => {
       while (element.hasChildNodes()) {
         element.removeChild(element.lastChild)
@@ -266,7 +265,7 @@ class Home extends View {
     })
   }
 
-  _setupSwipe(element, type) {
+  _setupSwipe (element, type) {
     return new Promise((resolve, reject) => {
       // 이미지 지연 로딩
       const images = Array.from(element.querySelectorAll('[data-src]'))
@@ -309,7 +308,7 @@ class Home extends View {
     })
   }
 
-  _setSmallPreviewMetadata(data) {
+  _setSmallPreviewMetadata (data) {
     const average = data.vote_average * 10
     const runtime = data.runtime
     const releaseDate = data.release_date.slice(0, 4)
@@ -321,7 +320,7 @@ class Home extends View {
     this.$refs.genres.insertAdjacentHTML('beforeend', genres.map(item => `<span>${item.name}</span>`).join())
   }
 
-  _setPreviewMetadata(data) {
+  _setPreviewMetadata (data) {
     const previewInfoContainer = this.DOM.previewInfoContainer
     const previewInfoRight = Array.from(this.DOM.previewInfoContainer.children)[1]
     addClass(previewInfoContainer, 'on')
@@ -339,15 +338,15 @@ class Home extends View {
   }
 
   // small preview의 위치
-  _setSmallPreviewPos(event, type) {
+  _setSmallPreviewPos (event, type) {
     const root = document.documentElement
     const fromEl = event.target
     const toEl = this.$refs.preview
     const metaEl = this.$refs.metadata
     const bounds = fromEl.getBoundingClientRect()
-    const winW = window.innerWidth  // 브라우저 창의 틀은 빼고 스크롤 크기를 포함한 크기
+    const winW = window.innerWidth // 브라우저 창의 틀은 빼고 스크롤 크기를 포함한 크기
     const scale = type === 'movie' ? 1.5 : 1.2
-    let width = bounds.width * scale // width를 1.5만큼 늘리기
+    const width = bounds.width * scale // width를 1.5만큼 늘리기
     let height = bounds.height * scale // height를 1.5만큼 늘리기
 
     height = height + metaEl.clientHeight // metaEl의 내부 높이를 픽셀로 반환
@@ -372,7 +371,7 @@ class Home extends View {
     })
   }
 
-  async _showSmallPreview(event, type) {
+  async _showSmallPreview (event, type) {
     const root = document.documentElement
     const fromEl = event.target
     const toEl = this.$refs.preview
@@ -488,7 +487,7 @@ class Home extends View {
   }
 
   // Full preview
-  async _showPreview(element, similiar) {
+  async _showPreview (element, similiar) {
     const root = document.documentElement
     const fromEl = element
     const toEl = element
@@ -497,9 +496,9 @@ class Home extends View {
     const similiarContainer = this.$refs.similiar
 
     similiar.forEach(item => {
-      let overview = item.overview.length > 200 ? item.overview.substring(0, 200) + '...' : item.overview
-      let release = item.release_date ? item.release_date.slice(0, 4) : ''
-      let voteAvg = item.vote_average ? item.vote_average * 10 : null
+      const overview = item.overview.length > 200 ? item.overview.substring(0, 200) + '...' : item.overview
+      const release = item.release_date ? item.release_date.slice(0, 4) : ''
+      const voteAvg = item.vote_average ? item.vote_average * 10 : null
 
       if (item.backdrop_path !== null) {
         similiarContainer.insertAdjacentHTML('beforeend', `
@@ -570,7 +569,7 @@ class Home extends View {
   }
 
   // https://developers.google.com/youtube/iframe_api_reference?hl=ko
-  _loadYouTubeScript() {
+  _loadYouTubeScript () {
     return new Promise((resolve, reject) => {
       // Load the IFrame Player API code asynchronously.
       const firstScriptTag = document.getElementsByTagName('script')[0]
@@ -584,7 +583,7 @@ class Home extends View {
   }
 
   // youtube 동영상 로드하기
-  async _loadYouTubeVideo(videos) {
+  async _loadYouTubeVideo (videos) {
     const { results } = videos
     const youtubeVideo = this.$refs.youtubeVideo
 
@@ -647,7 +646,7 @@ class Home extends View {
   }
 
   // 스크롤 감지
-  _onScrollStart() {
+  _onScrollStart () {
     if (this._isScrolling) {
       return
     }
@@ -658,7 +657,7 @@ class Home extends View {
     })
   }
 
-  _onScrollEnd() {
+  _onScrollEnd () {
     if (!this._isScrolling) {
       return
     }

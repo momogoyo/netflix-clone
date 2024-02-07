@@ -6,13 +6,12 @@ const template = `
 `
 
 class Tv extends View {
-  constructor() {
+  constructor () {
     super({
       innerHTML: template,
       className: 'Tv'
     }) // 이걸로 부모에 접근할 수 있다. (부모 클래스 constructor에 접근하도록 한다.)
   }
-
 }
 
 export default Tv

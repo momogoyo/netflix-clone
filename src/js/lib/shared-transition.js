@@ -2,7 +2,7 @@ import EventEmitter from 'events'
 import { addStyle, emptyStyle } from '../helper/utils'
 
 class SharedTransition extends EventEmitter {
-  constructor(config) {
+  constructor (config) {
     super()
 
     this.DOM = {
@@ -21,12 +21,12 @@ class SharedTransition extends EventEmitter {
     this.init()
   }
 
-  init() {
+  init () {
 
   }
 
   // animation을 시작하는 것 자체
-  play() {
+  play () {
     if (this.isAnimating) return
 
     this.isAnimating = true
@@ -60,7 +60,7 @@ class SharedTransition extends EventEmitter {
   }
 
   // preview-inner가 원래 자리로 돌아가도록
-  reverse() {
+  reverse () {
     this.emit('beforeReverseStart')
 
     // 애니메이션이 실행되고 있지 않을 때만 계산한다.
@@ -89,7 +89,7 @@ class SharedTransition extends EventEmitter {
   }
 
   // preview expand 될 때의 animate
-  _animate({ x, y, scale }) {
+  _animate ({ x, y, scale }) {
     return new Promise((resolve, reject) => {
       const toEl = this.DOM.to
       toEl.style.transition = '.24s'
@@ -100,7 +100,7 @@ class SharedTransition extends EventEmitter {
     })
   }
 
-  _setup() {
+  _setup () {
     const root = document.documentElement
     const scrollTop = root.scrollTop
     const fromPoint = this.points.from || this.DOM.from.getBoundingClientRect() // true일때까지 넘어간다. true가 없으면 가장 마지막을 선택

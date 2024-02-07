@@ -2,7 +2,7 @@ import { addClass } from '../helper/utils'
 import SharedTransition from '../lib/shared-transition'
 
 class VideoPlayer {
-  constructor(_DOM) {
+  constructor (_DOM) {
     this.DOM = Object.assign(_DOM, {
       video: document.getElementById('video'),
       togglePlay: document.getElementById('togglePlay'),
@@ -22,7 +22,7 @@ class VideoPlayer {
     this.init()
   }
 
-  init() {
+  init () {
     if (this._watching == false) {
       this.playended()
     }
@@ -33,14 +33,14 @@ class VideoPlayer {
     // }
   }
 
-  initEvent() {
+  initEvent () {
     // window.addEventListener('load', this.autoPlay.bind(this))
     this.DOM.togglePlay.addEventListener('click', this.togglePlay.bind(this))
     this.DOM.toggleMute.addEventListener('click', this.toggleMute.bind(this))
     this.DOM.videoDetailButton.addEventListener('click', (event) => this.showPreview(event))
   }
 
-  autoPlay() {
+  autoPlay () {
     // autoplay는 음소거 상태일 때만 가능하다.
     // 음소거하고 자동재생을 할 수 있도록 해야한다.
     this.isMuted = false
@@ -52,7 +52,7 @@ class VideoPlayer {
     }, 250)
   }
 
-  showPreview(event) {
+  showPreview (event) {
     const target = document.querySelector('[data-id="423108"] img')
 
     const mouseenterEvent = new Event('mouseenter')
@@ -75,7 +75,7 @@ class VideoPlayer {
     // }
   }
 
-  playended() { // watch?
+  playended () { // watch?
     setInterval(() => {
       if (this.DOM.video.ended) {
         this._watching = false
@@ -84,7 +84,7 @@ class VideoPlayer {
     }, 100)
   }
 
-  togglePlay() {
+  togglePlay () {
     if (this.isPlaying) {
       this.onPause()
     } else {
@@ -92,7 +92,7 @@ class VideoPlayer {
     }
   }
 
-  onPlay() {
+  onPlay () {
     this.isPlaying = true
 
     this.DOM.playButton.classList.remove('play')
@@ -101,7 +101,7 @@ class VideoPlayer {
     this.DOM.video.play()
   }
 
-  onPause() {
+  onPause () {
     this.isPlaying = false
 
     this.DOM.playButton.classList.remove('pause')
@@ -110,7 +110,7 @@ class VideoPlayer {
     this.DOM.video.pause()
   }
 
-  toggleMute() {
+  toggleMute () {
     if (this.isMuted) {
       this.onMuted()
     } else {
@@ -118,7 +118,7 @@ class VideoPlayer {
     }
   }
 
-  onMuted() {
+  onMuted () {
     this.isMuted = false
 
     this.DOM.muteButton.classList.remove('unmuted')
@@ -127,7 +127,7 @@ class VideoPlayer {
     this.DOM.video.muted = false
   }
 
-  onUnMuted() {
+  onUnMuted () {
     this.isMuted = true
 
     this.DOM.muteButton.classList.remove('muted')

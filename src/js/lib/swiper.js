@@ -1,10 +1,10 @@
 import EventEmitter from 'events'
 
 class Swiper extends EventEmitter {
-  constructor(element, options) {
+  constructor (element, options) {
     super()
 
-    this.DOM = { element: element }
+    this.DOM = { element }
     this.DOM.navigation = options.navigation || {}
     this.DOM.slides = Array.from(this.DOM.element.children)
 
@@ -22,24 +22,24 @@ class Swiper extends EventEmitter {
   }
 
   // 자주 사용하는건 get, set으로 빼기
-  get slideWidth() {
+  get slideWidth () {
     return !this.started ? 0 : (100 / this.slideGroupCount)
   }
 
-  set slideWidth(value) {
+  set slideWidth (value) {
     return value
   }
 
-  _init() {
+  _init () {
     this._initEvents()
   }
 
-  _initEvents() {
+  _initEvents () {
     this.DOM.navigation.prevEl.addEventListener('click', this.prev.bind(this))
     this.DOM.navigation.nextEl.addEventListener('click', this.next.bind(this))
   }
 
-  _navigate(direction) {
+  _navigate (direction) {
     // 애니메이션 중에는 실행되지 않도록 처리해준다.
     if (this.isAnimating) {
       return
@@ -70,7 +70,7 @@ class Swiper extends EventEmitter {
       })
   }
 
-  _animation(translateX) {
+  _animation (translateX) {
     // 시점 맞춰주기
     return new Promise((resolve, reject) => {
       const element = this.DOM.element
@@ -85,7 +85,7 @@ class Swiper extends EventEmitter {
   }
 
   // 무한 swipe
-  _setInfiniteSwipe(direction) {
+  _setInfiniteSwipe (direction) {
     const { element, slides } = this.DOM
 
     if (!direction) {
@@ -113,35 +113,34 @@ class Swiper extends EventEmitter {
     this.DOM.slides = Array.from(this.DOM.element.children)
   }
 
-  _getFirstGroupSlides() {
+  _getFirstGroupSlides () {
     const slides = this.DOM.slides
     return slides.filter((slide, index) => index < this.slideGroupCount)
   }
 
-  _getLastGroupSlides() {
+  _getLastGroupSlides () {
     const slides = this.DOM.slides.reverse()
     return slides.filter((slide, index) => index < this.slideGroupCount)
   }
 
-  _calcSlideGroup() {
+  _calcSlideGroup () {
     // 전체 width -> 이만큼 슬라이드를 넘겨줄 것이다.
     const totalWidth = this.DOM.element.clientWidth
 
-    // 슬라이드 하나하나의 크기 -> 가장 처음에 next하고 다시 prev하면 바로 뒤에 슬라이드 한장이 붙는다. 
+    // 슬라이드 하나하나의 크기 -> 가장 처음에 next하고 다시 prev하면 바로 뒤에 슬라이드 한장이 붙는다.
     const slideWidth = this.DOM.slides[0].clientWidth
 
     // 그렇게해서 슬라이드 그룹의 수를 구한다.
     return Math.round(totalWidth / slideWidth)
   }
 
-  next() {
+  next () {
     this._navigate('next')
   }
 
-  prev() {
+  prev () {
     this._navigate('prev')
   }
-
 }
 
 export default Swiper

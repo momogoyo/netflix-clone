@@ -2,7 +2,7 @@ import EventEmitter from 'events'
 import { isFunction } from '../helper/utils'
 
 class Router extends EventEmitter {
-  constructor({ entry, routes, initialRoute }) {
+  constructor ({ entry, routes, initialRoute }) {
     super()
 
     this._$entry = entry
@@ -17,13 +17,13 @@ class Router extends EventEmitter {
     this._init()
   }
 
-  _init() {
+  _init () {
     // DOM Rendering
     this._initRender()
     this._initEvents()
   }
 
-  _initRender() {
+  _initRender () {
     const path = this._getPath()
     const route = this._getRoute(path)
 
@@ -32,11 +32,11 @@ class Router extends EventEmitter {
     }
   }
 
-  _initEvents() {
+  _initEvents () {
     window.addEventListener('popstate', this._onpopstate.bind(this))
   }
 
-  _render(route) {
+  _render (route) {
     const previousComponent = this._previousComponent
     if (previousComponent instanceof route.component) {
       return
@@ -73,7 +73,7 @@ class Router extends EventEmitter {
     this._previousComponent = component
   }
 
-  _pushState(route) {
+  _pushState (route) {
     const state = null
     const title = ''
     const path = route.path
@@ -81,16 +81,16 @@ class Router extends EventEmitter {
     window.history.pushState(state, title, path)
   }
 
-  _getRoute(path) {
+  _getRoute (path) {
     return this._routes.find(route => route.path === path)
   }
 
   // 현재 어떤 URL을 가지고 있나?
-  _getPath() {
+  _getPath () {
     return window.location.pathname
   }
 
-  _onpopstate(event) {
+  _onpopstate (event) {
     const path = this._getPath()
     const route = this._getRoute(path)
 
@@ -99,7 +99,7 @@ class Router extends EventEmitter {
     }
   }
 
-  go(path) {
+  go (path) {
     const route = this._getRoute(path)
 
     if (route) {
