@@ -92,3 +92,5 @@ translate는 paint 과정만 있기 때문에 굉장히 빠르다고 한다.
 
   
 [참고](https://edu.goorm.io/learn/lecture/557/%ED%95%9C-%EB%88%88%EC%97%90-%EB%81%9D%EB%82%B4%EB%8A%94-node-js/lesson/174362/event-%EB%AA%A8%EB%93%88)
+
+[기존 저장소 링크](https://github.com/HyunYuJin/netflix-clone)
