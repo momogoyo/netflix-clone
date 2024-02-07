@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  font-family: sans-serif;
+  font-weight: 400;
+  min-width: 280px;
+  font-size: 14px;
+  background-color: #141414;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: top;
+  object-fit: cover;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  outline: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+svg {
+  outline: none;
+}
+
+img[src=""] {
+  display: none;
+}

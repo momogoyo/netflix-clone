@@ -1,0 +1,28 @@
+// bootstrap 같은 것들 모아둔 파일
+.sr-only {
+  // 접근성을 위한 클래스 // sr: screen reader의 줄임말
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+img.lazy-load {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity .33s ease;
+}
+
+img.loaded {
+  opacity: 1;
+  transition-duration: 0.33s;
+  transition-timing-function: ease;
+}
